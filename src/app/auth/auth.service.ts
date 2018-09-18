@@ -10,6 +10,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { ActivarLoadingAction } from '../share/ui.accions';
 import { DesactivarLoadingAction } from '../share/ui.accions';
+import { SetUserAction } from './auth.accions';
+import { Subscription} from 'rxjs';
 
 
 
@@ -20,12 +22,24 @@ import { DesactivarLoadingAction } from '../share/ui.accions';
 })
 export class AuthService {
 
+  private userSubcriptions: Subscription = new Subscription();
+
   constructor(private afAuth: AngularFireAuth, private router: Router, private afDB: AngularFirestore,
     private store: Store<AppState>) { }
 
   initAuthListener() {
     this.afAuth.authState.subscribe((fbUser: firebase.User) => {
-      console.log(fbUser);
+      if (fbUser) {
+        this.userSubcriptions = this.afDB.doc(`${fbUser.uid}/usuario`).valueChanges()
+          .subscribe(
+            (usuarioObj: any) => {
+              const newUser = new User(usuarioObj);
+              this.store.dispatch(new SetUserAction(newUser));
+            }
+          );
+      } else {
+        this.userSubcriptions.unsubscribe();
+      }
     });
   }
 
