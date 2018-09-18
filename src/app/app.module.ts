@@ -27,6 +27,10 @@ import { NavbarComponent } from './share/navbar/navbar.component';
 import { SidebarComponent } from './share/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+// Pipe
+import { OrdenIngresoEgresoPipe } from './ingreso-egreso/orden-ingreso-egreso.pipe';
+
+
 
 @NgModule({
   declarations: [
@@ -39,10 +43,13 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
     DetalleComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    OrdenIngresoEgresoPipe
+
   ],
   imports: [
-    BrowserModule,
+  
+  BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),

@@ -8,6 +8,7 @@ import { filter, map } from 'rxjs/operators';
 import { SetItemsAction } from './ingreso-egresos.actions';
 import { Subscription } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -58,5 +59,11 @@ export class IngresoEgresoService {
     .subscribe((collection: any[]) => {
       this.store.dispatch(new SetItemsAction(collection));
     });
+  }
+
+  borrarIngresoEgreso (uid: string) {
+    const user = this.authService.getUssuario();
+    return this.afDB.doc(`${user.uid}/ingreso-egreso/item/${uid}`)
+      .delete();
   }
 }
