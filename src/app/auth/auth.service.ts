@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { ActivarLoadingAction } from '../share/ui.accions';
 import { DesactivarLoadingAction } from '../share/ui.accions';
-import { SetUserAction } from './auth.accions';
+import { SetUserAction, UnSetUserAction } from './auth.accions';
 import { Subscription} from 'rxjs';
 
 
@@ -92,6 +92,7 @@ export class AuthService {
   logout() {
     this.router.navigate(['/login']);
     this.afAuth.auth.signOut();
+    this.store.dispatch(new UnSetUserAction());
   }
 
   isAuth() {

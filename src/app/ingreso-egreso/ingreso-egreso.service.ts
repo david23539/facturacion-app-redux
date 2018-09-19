@@ -5,7 +5,7 @@ import { AuthService } from './../auth/auth.service';
 import { AppState } from '../app.reducer';
 import { Store } from '@ngrx/store';
 import { filter, map } from 'rxjs/operators';
-import { SetItemsAction } from './ingreso-egresos.actions';
+import { SetItemsAction, UnSetItemsAction } from './ingreso-egresos.actions';
 import { Subscription } from 'rxjs';
 
 
@@ -21,10 +21,11 @@ export class IngresoEgresoService {
     private store: Store<AppState>) { }
 
 
-    cancelarSubscriptions() {
-      this.ingresoEgresoItemsSubcription.unsubscribe();
-      this.ingresoEgresoListenerSubcription.unsubscribe();
-    }
+  cancelarSubscriptions() {
+    this.ingresoEgresoItemsSubcription.unsubscribe();
+    this.ingresoEgresoListenerSubcription.unsubscribe();
+    this.store.dispatch(new UnSetItemsAction());
+  }
 
   crearIngresoEgreso(ingresoEgreso: IngrsoEgreso) {
     const user = this.authService.getUssuario();

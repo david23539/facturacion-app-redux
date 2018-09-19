@@ -15,6 +15,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   import { AngularFireAuthModule } from '@angular/fire/auth';
   import { environment } from '../environments/environment';
 
+  // Graficas
+  import { ChartsModule } from 'ng2-charts';
 // Componentes
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -48,8 +50,7 @@ import { OrdenIngresoEgresoPipe } from './ingreso-egreso/orden-ingreso-egreso.pi
 
   ],
   imports: [
-  
-  BrowserModule,
+    BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -60,6 +61,7 @@ import { OrdenIngresoEgresoPipe } from './ingreso-egreso/orden-ingreso-egreso.pi
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
+    ChartsModule,
     FormsModule
   ],
   providers: [],
